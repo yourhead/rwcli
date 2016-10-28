@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "0800"
+   version = "2.0">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#!/bin/sh&#10;&#10;&#10;#&#10;# This bit of crazy will log the output of this script to a tmp file&#10;# and then display the log in the console.&#10;# This is because Xcode provides no mechanism to display scheme pre/post output.&#10;#&#10;#LOG=&quot;/tmp/build_number_script_log_${RW_VERSION}.log&quot;&#10;#rm -f &quot;${LOG}&quot;&#10;#touch &quot;${LOG}&quot;&#10;#&#10;#&#10;##open &quot;${LOG}&quot;&#10;#exec &gt; &quot;${LOG}&quot; 2&gt;&amp;1&#10;&#10;&#10;# echo &quot;Build Number Log\n\n&quot;&#10;# set -v&#10;&#10;&#10;# the tools&#10;MV=&quot;/bin/mv -f&quot;&#10;RM=&quot;/bin/rm -f&quot;&#10;CAT=&quot;/bin/cat&quot;&#10;SED=&quot;/usr/bin/sed&quot;&#10;WC=&quot;/usr/bin/wc&quot;&#10;GIT=&quot;/usr/bin/xcrun git&quot;&#10;&#10;# the replacement&#10;LINE=&quot;CFBundleVersion&quot;&#10;TAG=&quot;string&quot;&#10;&#10;if [[ &quot;${BUILD_NUMBER_OFFSET}&quot; == &quot;&quot; ]]; then&#10;BUILD_NUMBER_OFFSET=&quot;0&quot;&#10;fi&#10;BUILD_NUMBER=$((`cd ${PROJECT_DIR}; $GIT log --pretty=format:&apos;&apos; | $WC -l | $SED -e &apos;s/ *//g&apos;` + ${BUILD_NUMBER_OFFSET} ))&#10;&#10;# the files&#10;CONTENTS_DIR=&quot;${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents&quot;&#10;PLIST=&quot;${CONTENTS_DIR}/Info.plist&quot;&#10;TEMP=&quot;${CONTENTS_DIR}/Info.plist.temp&quot;&#10;&#10;# do it&#10;$RM &quot;${TEMP}&quot;&#10;if [ -f &quot;${TEMP}&quot; ]; then&#10;echo &quot;Error: remove failed.&quot;&#10;#open &quot;${LOG}&quot;&#10;exit 1&#10;fi&#10;&#10;$CAT &quot;${PLIST}&quot; | $SED -e &quot;/${LINE}/N&quot; -e &quot;s/\(${LINE}.*&lt;${TAG}&gt;\).*\(&lt;\/${TAG}&gt;\)/\1${BUILD_NUMBER}\2/&quot; &gt; &quot;${TEMP}&quot;&#10;if [ ! -f &quot;${TEMP}&quot; ]; then&#10;echo &quot;Error: temp info.plist creation failed.&quot;&#10;#open &quot;${LOG}&quot;&#10;exit 1&#10;fi&#10;&#10;$MV &quot;${TEMP}&quot; &quot;${PLIST}&quot;&#10;if [ -f &quot;${TEMP}&quot; ]; then&#10;echo &quot;Error: move failed.&quot;&#10;#open &quot;${LOG}&quot;&#10;exit 1&#10;fi&#10;&#10;if [ ! -f &quot;${PLIST}&quot; ]; then&#10;echo &quot;Error: move failed.&quot;&#10;#open &quot;${LOG}&quot;&#10;exit 1&#10;fi&#10;&#10;&#10;exit 0">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "00B1C83B1DB436DB001EBF49"
+                     BuildableName = "cli.rapidweaverplugin"
+                     BlueprintName = "cli"
+                     ReferencedContainer = "container:cli.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#!/bin/sh&#10;&#10;&#10;#&#10;# This bit of crazy will log the output of this script to a tmp file&#10;# and then display the log in the console.&#10;# This is because Xcode provides no mechanism to display scheme pre/post output.&#10;#&#10;# LOG=&quot;/tmp/install_script_log.log&quot;&#10;# rm -f &quot;${LOG}&quot;&#10;# touch &quot;${LOG}&quot;&#10;&#10;# open &quot;${LOG}&quot;&#10;# exec &gt; &quot;${LOG}&quot; 2&gt;&amp;1&#10;&#10;# echo &quot;Install Log\n\n&quot;&#10;# set -v&#10;&#10;&#10;# the tools&#10;CP=&quot;/bin/cp -R&quot;&#10;RM=&quot;/bin/rm -Rf&quot;&#10;&#10;ME=`whoami`&#10;echo &quot;${ME}&quot;&#10;if [[ &quot;${ME}&quot; == &quot;xcodeserver&quot; ]]; then&#10;echo &quot;build bots don t do installs -- we re all done here&quot;&#10;exit 0&#10;fi&#10;&#10;# if the library directory is set in the conf use that&#10;DEFAULT_LIB_DIR=&quot;/Users/${ME}/Library/Containers/com.realmacsoftware.rapidweaver/Data/Library/Application\ Support/RapidWeaver&quot;&#10;if [[ &quot;${RW_LIBRARY_DIR}&quot; == &quot;&quot; ]]; then&#10;LIB_DIR=&quot;${DEFAULT_LIB_DIR}&quot;&#10;else&#10;LIB_DIR=&quot;${RW_LIBRARY_DIR}&quot;&#10;fi&#10;&#10;# source and destination&#10;SOURCE=&quot;${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}&quot;&#10;DEST=&quot;${LIB_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}&quot;&#10;&#10;# remove the old one&#10;$RM &quot;${DEST}&quot;&#10;if [ -d &quot;${DEST}&quot; ]; then&#10;echo &quot;Error: remove from addons folder failed.&quot;&#10;fi&#10;&#10;# do the copy&#10;cp -R &quot;${SOURCE}&quot; &quot;${DEST}&quot;&#10;if [ ! -d &quot;${DEST}&quot; ]; then&#10;echo &quot;Error: copy to addons folder failed.&quot;&#10;fi&#10;&#10;&#10;exit 0&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "00B1C83B1DB436DB001EBF49"
+                     BuildableName = "cli.rapidweaverplugin"
+                     BlueprintName = "cli"
+                     ReferencedContainer = "container:cli.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "00B1C83B1DB436DB001EBF49"
+               BuildableName = "cli.rapidweaverplugin"
+               BlueprintName = "cli"
+               ReferencedContainer = "container:cli.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "00B1C83B1DB436DB001EBF49"
+            BuildableName = "cli.rapidweaverplugin"
+            BlueprintName = "cli"
+            ReferencedContainer = "container:cli.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "NO"
+      debugXPCServices = "NO"
+      debugServiceExtension = "internal"
+      enableGPUFrameCaptureMode = "3"
+      enableGPUValidationMode = "1"
+      allowLocationSimulation = "NO">
+      <PathRunnable
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "com.realmacsoftware.rapidweaver"
+         FilePath = "/Applications/RapidWeaver 7.app">
+      </PathRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "00B1C83B1DB436DB001EBF49"
+            BuildableName = "cli.rapidweaverplugin"
+            BlueprintName = "cli"
+            ReferencedContainer = "container:cli.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "--publish all"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;${PROJECT_DIR}/cli-test.rw&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "&#10;#&#10;# Sorry, I&apos;m not providing this bit in the open source&#10;# You should just build and archive as normal&#10;#&#10;&#10;/Users/iac/Dropbox/dev/scripts/appcast.sh">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "00B1C83B1DB436DB001EBF49"
+                     BuildableName = "cli.rapidweaverplugin"
+                     BlueprintName = "cli"
+                     ReferencedContainer = "container:cli.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
+   </ArchiveAction>
+</Scheme>

@@ -1,0 +1,24 @@
+//
+//  CLI_Prefix.pch
+//  cli
+//
+//  Created by Isaiah Carew on 10/27/16.
+//  Copyright © 2016 Isaiah Carew. All rights reserved.
+//
+
+
+#ifdef __OBJC__
+
+    #import <Cocoa/Cocoa.h>
+
+    #ifdef DEBUG
+
+    #else
+
+        #ifndef NS_BLOCK_ASSERTIONS
+            #define NS_BLOCK_ASSERTIONS
+        #endif
+
+    #endif
+
+#endif

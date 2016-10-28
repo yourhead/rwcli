@@ -1,0 +1,27 @@
+//
+//  cli.xcconfig
+//  cli
+//
+//  Created by Isaiah Carew on 10/27/16.
+//  Copyright © 2016 Isaiah Carew. All rights reserved.
+//
+
+INFO_VERSION = 1.0.0
+
+PRODUCT_BUNDLE_IDENTIFIER = com.yourhead.cli
+PRODUCT_NAME = cli
+GCC_PREFIX_HEADER = ${PRODUCT_NAME}_Prefix.pch
+
+INFO_EXECUTABLE_FILE = cli
+INFO_ICON_FILE = icon
+INFO_NIB = cli
+INFO_CLASS = YHCliPlugin
+INFO_RW_ADDON_MANAGER_ICON = addon_manager
+INFO_RW_PLUGIN_ICON_SMALL = list_color
+INFO_RW_PLUGIN_ICON_SMALL_SELECTED = list_light
+
+APPCAST_DIR = appcast_64
+SUFEED_URL = yourhead.com/appcast/RW6/cli/appcast.xml
+ICON_IMAGE_URL = yourhead.com/_site/assets/img/cli_big.png
+
+CLANG_ENABLE_OBJC_ARC = YES
