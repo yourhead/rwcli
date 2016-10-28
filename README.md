@@ -10,9 +10,10 @@
 CLI is a plugin for RapidWeaver that adds a very basic publsihing a file from the command line.  The goal is to produce a repeatable mechanism for automating publishing for integration testing.
 
 ### Use
- - set up a project file (one is provided in this project as an example)
- - make sure to specify the publish location
- - on the command line:
+ - compile and install the cli plugin
+ - set up a RapidWeaver project  (one is provided in this project as an example)
+- make sure to specify the publish location -- this cannot be specified on the command line :-(
+ - launch RW from the command line
 
 ```
 
