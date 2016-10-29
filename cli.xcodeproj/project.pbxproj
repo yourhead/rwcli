@@ -10,7 +10,6 @@
 		000ECB471DC2E77800C14F82 /* YHTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 000ECB461DC2E77800C14F82 /* YHTest.m */; };
 		00B1C8471DB43715001EBF49 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1C8461DB43715001EBF49 /* Cocoa.framework */; };
 		00B1C84F1DB43B20001EBF49 /* YHCliPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1C84E1DB43B20001EBF49 /* YHCliPlugin.m */; };
-		00C2DB771DC2F98100BA87C0 /* cli-test.rw in Resources */ = {isa = PBXBuildFile; fileRef = 00C2DB761DC2F98100BA87C0 /* cli-test.rw */; };
 		00F130BF1DC2F73300646C58 /* RMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F130BD1DC2F73300646C58 /* RMKit.framework */; };
 		00F130C01DC2F73300646C58 /* RWKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F130BE1DC2F73300646C58 /* RWKit.framework */; };
 /* End PBXBuildFile section */
@@ -29,6 +28,7 @@
 		000ECB461DC2E77800C14F82 /* YHTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHTest.m; sourceTree = "<group>"; };
 		000ECB481DC2E78800C14F82 /* YHTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHTest.h; sourceTree = "<group>"; };
 		008F4DFE1DC2E8A0009ED353 /* cli.rapidweaverplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cli.rapidweaverplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		00A886021DC42E520022E942 /* ReleaseNotes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReleaseNotes; sourceTree = "<group>"; };
 		00B1C8461DB43715001EBF49 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		00B1C84B1DB4377B001EBF49 /* cli.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = cli.xcconfig; sourceTree = "<group>"; };
 		00B1C84D1DB43B20001EBF49 /* YHCliPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHCliPlugin.h; sourceTree = "<group>"; };
@@ -71,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				00C1C4A61DC3BC6800C836B2 /* README.md */,
+				00A886021DC42E520022E942 /* ReleaseNotes */,
 				00B1C83E1DB436DB001EBF49 /* code */,
 				00C1C4A41DC3B84300C836B2 /* scripts */,
 				00C2DB781DC2F98800BA87C0 /* test files */,
@@ -206,7 +207,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00C2DB771DC2F98100BA87C0 /* cli-test.rw in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
